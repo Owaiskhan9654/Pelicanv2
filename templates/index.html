@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico">
+  <link rel="icon" href="https://images.squarespace-cdn.com/content/v1/602a6f5204cc80278e0e5ed1/1615300997899-VP2OEPL21UFCR4MVM21Z/favicon.ico?format=100w">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+
+  <title>SARS-CoV-2 Ultra Rapid Antigen Test</title>
+
+</head>
+<body style="background:#dafffffd">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+
+  .footer {
+    position: relative;
+    left: 0;
+    bottom: 0;
+    float: none;
+    display: block;
+  }
+  
+  .topnav {
+    position: relative;
+    overflow: hidden;
+    background-color: #0A1A2AFF;
+  }
+  
+  .topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  .topnav a.active {
+    background-color: #25E0EFFF;
+    color: white;
+  }
+  
+  .topnav-right {
+    float: right;
+  }
+  
+  /* Responsive navigation menu (for mobile devices) */
+  @media screen and (max-width: 600px) {
+    .topnav a, .topnav-right {
+      float: none;
+      display: block;
+    }
+  }
+
+
+  .heading {
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: 5px 10px #0A1A2AFF;
+}
+.table {
+  border: 2px solid #555;
+  border-collapse: collapse;
+  font: 16px "Lucida Grande", "Helvetica", "Arial", sans-serif;
+}
+.th, .td {
+  border: 1px solid #bbb;
+  padding: 2px 8px 0;
+  text-align: left;
+}
+  </style>
+  </body>
+  <body>
+  
+  <div class="topnav">
+    
+   
+    <!-- Right-aligned links -->
+    <div class="topnav-left">
+      <a href="https://www.canarydetect.com/">Home</a>
+      <a href="https://www.canarydetect.com/about">About</a>
+      <a href="https://www.canarydetect.com/technology">Technology</a>
+      <a href="https://www.canarydetect.com/newsroom">Newsroom</a>
+      <a href="https://www.canarydetect.com/contact">Contact</a> 
+    </div>
+    <div class="topnav-right">
+      <img src="{{url_for('static', filename='Canary_logo.png')}}"  float= "right" width="230px" height ="50px" />
+    </div>
+  
+  </div>
+
+
+  <div class="container">
+    <div style="background:#dafffffd" class="jumbotron"  >
+     <div style="font-family:TechnicBold,serif">
+        <p>
+          <center>
+            <font class='heading'  size="4">This is a Data Science platform of Pelican Project (Prototype) based on Sample Results</font>
+          </center>
+        </p>
+        
+      </div>
+      <center>
+        <img src="{{url_for('static', filename='Pelican Logo.png')}}"  width="200px" height ="200px"  alt=""/>
+      </center>
+      
+    <form action= "{{url_for('predict')}}"  method='post'>
+      <div class="input-group"  autofocus  >
+
+              <input type="text" class="form-control input-lg" name="sample_id" placeholder="Enter your Sample ID here" required = 'required' width =50% height= 50%  >
+          <div class="input-group-btn">
+          <button class="btn btn-primary btn-lg" type="submit" style="background-color:#25E0EFFF; border-color:#dafffffd">
+            <i class="glyphicon glyphicon-search"></i>
+          </button>
+         
+        </div>
+      </div>
+    </form>
+
+  </div>
+  
+    </div>
+    <div>  
+      <center>  
+        <th class="table">{% for table in tables %}</th>
+        <tbody class="table" >{{ table|safe }}</tbody>
+        {% endfor %}   </center> 
+    </div>
+
+    <div>
+    {% if prediction_text %}
+    <h2><center>{{prediction_text}}</center></h2> 
+    {% endif %}  
+  </div>
+               
+      <div>
+    {% if final_prediction %}
+    <h2><center>{{final_prediction}}</center></h2>
+    {% endif %}
+  </div>
+  </body>
+  <footer class="footer"  style="background-color: #0A1A2AFF">
+          
+    <h5 style="color:#dafffffd;"><center>This Search Engine is a Prototype for Canary Global Inc Company, Still in Development Phase and for Research Purpose Only</center></h5>
+ 
+ 
+   <h5 style="color:#dafffffd;"><div style="text-align: center;">Canary Global Inc. (Canary) is a medical technology company that builds revolutionary diagnostic platforms and services. Combined with AI-powered intelligence, Canary’s nano-sensor technology can detect diseases. Please get in <a href="https://www.canarydetect.com/"> touch </a>  for any queries❤️. </div></h5>
+   <center><img src="{{url_for('static', filename='Canary_logo.png')}}"  width="230px" height ="50px"  alt=""/></center>
+   
+   
+  
+ </footer>    
+  
+</html>
