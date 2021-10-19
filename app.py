@@ -9,15 +9,14 @@ app = Flask(__name__)
 @app.route('/predict', methods = ['POST'])
 def predict():
 
+    try:
+        sample_id = int(request.form['sample_id'])
+        result,final_prediction = feature_extraction_from_database(sample_id)
+        return render_template('index.html', tables=[result.to_html(classes='data',index = False)],final_prediction=final_prediction)
 
-    sample_id = int(request.form['sample_id'])
-    result,final_prediction = feature_extraction_from_database(sample_id)
-    return render_template('index.html', tables=[result.to_html(classes='data',index = False)],final_prediction=final_prediction)
-
-    #except:
-    #  sample_id = int(request.form['sample_id'])
-
-    #  return render_template('index.html', prediction_text= '{} is Not a valid sample id as it cannot be Fetched from Database. Please get in touch with the team'.format(sample_id))
+    except:
+        sample_id = int(request.form['sample_id'])
+        return render_template('index.html', prediction_text= '{} cannot be Fetched from Database. Please get in touch with the team Development.'.format(sample_id))
 
 
 
