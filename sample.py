@@ -30,7 +30,7 @@ def feature_extraction_from_database(sample_id):
     #df = df.reindex(['C1 control','C1 test','C2 control','C2 test'], axis=1)
     if RawC1C2['C1 control'].empty or RawC1C2['C1 test'].empty or RawC1C2['C2 control'].empty or RawC1C2['C2 test'].empty:
         final_prediction = "Either or All Channel Data is Not Present"
-        return final_prediction
+        return RawC1C2,final_prediction
     RawC1C2['C1']=(RawC1C2['C1 control']+RawC1C2['C1 test'])/2
     RawC1C2['C2']=(RawC1C2['C2 control']+RawC1C2['C2 test'])/2
     
