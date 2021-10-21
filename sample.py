@@ -28,8 +28,11 @@ def feature_extraction_from_database(sample_id):
     # Closing the connection
     conn.close()
     #df = df.reindex(['C1 control','C1 test','C2 control','C2 test'], axis=1)
+    if RawC1C2['C1 control'].empty or RawC1C2['C1 test'].empty or RawC1C2['C2 control'].empty or RawC1C2['C2 test'].empty:
+        final_prediction = "Either or All Channel Data is Not Present"
+        return final_prediction
     RawC1C2['C1']=(RawC1C2['C1 control']+RawC1C2['C1 test'])/2
-    RawC1C2['C2']=(RawC1C2['C2 control']-RawC1C2['C2 test'])/2
+    RawC1C2['C2']=(RawC1C2['C2 control']+RawC1C2['C2 test'])/2
     
     features = []
     for i in RawC1C2[['C1','C2']].columns:
@@ -76,7 +79,7 @@ def feature_extraction_from_database(sample_id):
     
     if pd.DataFrame(df_predict[["Inconclusive Probability Percentage", "Negative Probability Percentage", "Positive Probability Percentage"]].max(axis=0)).idxmax().values[0] == 'Negative Probability Percentage':
         final_prediction = "Final Prediction is Negative"
-    elif pd.DataFrame(df_predict[["Inconclusive Probability Percentage", "Negative Probability Percentage", "Positive Probability Percentage"]].max(axis=0)).idxmax().values[0] == ' Probability Probability Percentage':
+    elif pd.DataFrame(df_predict[["Inconclusive Probability Percentage", "Negative Probability Percentage", "Positive Probability Percentage"]].max(axis=0)).idxmax().values[0] == 'Positive Probability Percentage':
         final_prediction = "Final Prediction is Positive"
     elif pd.DataFrame(df_predict[["Inconclusive Probability Percentage", "Negative Probability Percentage", "Positive Probability Percentage"]].max(axis=0)).idxmax().values[0] == 'Inconclusive Probability Percentage':
         final_prediction = "Final Prediction is Inconclusive"
