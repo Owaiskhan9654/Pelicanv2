@@ -34,22 +34,22 @@ def feature_extraction_from_database(sample_id):
     
     elif RawC1C2['C1 test'].isna().all() or RawC1C2['C2 test'].isna().all():
         final_prediction = "Data of Channels After Incubation are Not Present"
-        return RawC1C2,final_prediction
+        return RawC1C2.head(5),final_prediction
     elif RawC1C2['C1 control'].isna().all() or RawC1C2['C2 control'].isna().all():
         final_prediction = "Data of Channels before Incubation are Not Present"
         return RawC1C2,final_prediction
     elif RawC1C2['C1 control'].isna().all():
         final_prediction = "Data of Channel 1 Before Incubation is Not Present"
-        return RawC1C2,final_prediction
+        return RawC1C2.head(5),final_prediction
     elif RawC1C2['C2 control'].isna().all():
         final_prediction = "Data of Channel 2 Before Incubation is Not Present"
-        return RawC1C2,final_prediction
+        return RawC1C2.head(5),final_prediction
     elif RawC1C2['C1 test'].isna().all():
         final_prediction = "Data of Channel 1 After Incubation is Not Present"
-        return RawC1C2,final_prediction
+        return RawC1C2.head(5),final_prediction
     elif RawC1C2['C2 test'].isna().all():
         final_prediction = "Data of Channel 2 After Incubation is Not Present"
-        return RawC1C2,final_prediction
+        return RawC1C2.head(5),final_prediction
 
     RawC1C2['C1']=(RawC1C2['C1 control']+RawC1C2['C1 test'])/2
     RawC1C2['C2']=(RawC1C2['C2 control']+RawC1C2['C2 test'])/2
