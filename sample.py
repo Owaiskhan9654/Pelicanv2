@@ -28,9 +28,29 @@ def feature_extraction_from_database(sample_id):
     # Closing the connection
     conn.close()
     #df = df.reindex(['C1 control','C1 test','C2 control','C2 test'], axis=1)
-    if RawC1C2['C1 control'].empty or RawC1C2['C1 test'].empty or RawC1C2['C2 control'].empty or RawC1C2['C2 test'].empty:
-        final_prediction = "Either or All Channel Data is Not Present"
+    if df['C1 control'].isna().all() and df['C1 test'].isna().all() and df['C2 control'].isna().all() and df['C2 test'].isna().all():
+        final_prediction = "All Channels Data are Not Present"
         return RawC1C2,final_prediction
+    
+    elif df['C1 test'].isna().all() or df['C2 test'].isna().all():
+        final_prediction = "Data of Channels After Incubation are Not Present"
+        return RawC1C2,final_prediction
+    elif df['C1 control'].isna().all() or df['C2 control'].isna().all():
+        final_prediction = "Data of Channels before Incubation are Not Present"
+        return RawC1C2,final_prediction
+    elif df['C1 control'].isna().all():
+        final_prediction = "Data of Channel 1 Before Incubation is Not Present"
+        return RawC1C2,final_prediction
+    elif df['C2 control'].isna().all():
+        final_prediction = "Data of Channel 2 Before Incubation is Not Present"
+        return RawC1C2,final_prediction
+    elif df['C1 test'].isna().all():
+        final_prediction = "Data of Channel 1 After Incubation is Not Present"
+        return RawC1C2,final_prediction
+    elif df['C2 test'].isna().all():
+        final_prediction = "Data of Channel 2 After Incubation is Not Present"
+        return RawC1C2,final_prediction
+
     RawC1C2['C1']=(RawC1C2['C1 control']+RawC1C2['C1 test'])/2
     RawC1C2['C2']=(RawC1C2['C2 control']+RawC1C2['C2 test'])/2
     
